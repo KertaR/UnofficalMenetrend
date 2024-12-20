@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menetrendek</title>
-    <!-- Bootstrap CSS -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .highlight { /* Kiemelő osztály */
@@ -27,40 +27,30 @@
             max-height: 200px; /* Maximális magasság (scroll-barhoz) */
             overflow-y: auto; /* Görgetés, ha túl hosszú */
         }
-
-        .list-group-item:hover {
-            background-color: #e9ecef; /* Sor kiemelés hover esetén */
-        }
     </style>
 </head>
 <body>
 <div class="container my-5">
-    <!-- Input mezők és gomb -->
     <div class="text-center">
         <h1 class="mb-4">Adatok Beküldése</h1>
         <form>
-            <div class="row g-2 justify-content-center highlight">
-                <!-- Szűrésválasztó az indulási helyhez -->
+            <div class="row justify-content-center highlight">
                 <div class="col-4 position-relative">
-                    <input id="departure-filter" class="form-control" type="text" placeholder="Indulási hely szűrése..." onkeyup="filterCities('departure-filter', 'departure-list')">
+                    <input id="departure-filter" class="form-control" autocomplete="off" type="text" placeholder="Indulási hely szűrése...">
                     <ul id="departure-list" class="list-group mt-2">
-                        <!-- Városok JavaScript segítségével kerülnek betöltésre -->
                     </ul>
                 </div>
                 <div class="col-4 position-relative">
-                    <input id="arrival-filter" class="form-control" type="text" placeholder="Érkezési hely szűrése..." onkeyup="filterCities('arrival-filter', 'arrival-list')">
+                    <input id="arrival-filter" class="form-control" autocomplete="off" type="text" placeholder="Érkezési hely szűrése...">
                     <ul id="arrival-list" class="list-group mt-2">
-                        <!-- Városok JavaScript segítségével kerülnek betöltésre -->
                     </ul>
                 </div>
-                <!-- Küldés gomb -->
                 <div class="col-4">
-                    <button type="button" class="btn btn-primary w-100" onclick="loadTableData()">Küldés</button>
+                    <button id="search-button" type="button" class="btn btn-primary w-100">Küldés</button>
                 </div>
             </div>
         </form>
 
-        <!-- Táblázat -->
         <div class="mt-5">
             <h2 class="mb-4">Táblázat</h2>
             <table id="data-table" class="table table-bordered">
@@ -75,13 +65,11 @@
                 </tr>
                 </thead>
                 <tbody>
-                <!-- JavaScript tölti ki -->
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-<!-- JavaScript -->
-<script src="engine.js"></script>
+<script type="module" src="main.js"></script>
 </body>
 </html>
