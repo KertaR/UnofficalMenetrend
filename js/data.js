@@ -1,3 +1,5 @@
+import { MenetrendTalalat } from './object/MenetrendTalalat.js';
+
 let data = []; // Az adatok tárolása
 let citiesData = [];
 
@@ -78,9 +80,10 @@ async function loadData(departureCityId, arrivalCityId) {
         }
 
         const jsonData = await response.json();
+        const menetrendTalalat = new MenetrendTalalat(jsonData);
 
-        if (jsonData.status === "success") {
-            data = Object.values(jsonData.results.talalatok).map(talalat => {
+        if (menetrendTalalat.status === "success") {
+            data = Object.values(menetrendTalalat.results.talalatok).map(talalat => {
                 let transportMode = "other";
                 if (talalat.nativeData && talalat.nativeData[0]?.TransportMode?.includes("vehicles.train")) {
                     transportMode = "vehicles.train";

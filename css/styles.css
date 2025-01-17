@@ -1,0 +1,21 @@
+.highlight { /* Kiemelő osztály */
+    background-color: #f8f9fa;
+    padding: 15px;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+}
+.list-group {
+    display: none; /* Alapértelmezetten rejtés */
+    position: absolute; /* Lebegő megjelenés */
+    z-index: 1000; /* Biztosítsuk, hogy más elem ne takarja */
+    background-color: white; /* Háttérszín */
+    border: 1px solid #ccc; /* Keret */
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Lebegés hatás */
+    width: 100%; /* A szűrőmező szélességével megegyező */
+    max-height: 200px; /* Maximális magasság (scroll-barhoz) */
+    overflow-y: auto; /* Görgetés, ha túl hosszú */
+}
+mark {
+    color: black; /* To ensure text is readable against yellow */
+}
