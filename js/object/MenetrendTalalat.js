@@ -7,4 +7,4 @@ class MenetrendTalalat {
     }
 }
 
-export { MenetrendTalalat }
+export {MenetrendTalalat}

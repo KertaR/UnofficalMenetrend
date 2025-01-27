@@ -1,6 +1,6 @@
-import { loadCities, loadData, citiesData, data } from './data.js';
-import { populateCityList, filterCities, updateTable } from './ui.js';
-import { enableSorting } from './events.js';
+import {loadCities, loadData, citiesData, data} from './data.js';
+import {populateCityList, filterCities, updateTable} from './ui.js';
+import {enableSorting} from './events.js';
 
 document.addEventListener("DOMContentLoaded", () => {
     loadCities().then(() => {
@@ -38,20 +38,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const arrivalList = document.getElementById("arrival-list");
 
     departureFilter.addEventListener("input", () => {
-        if(departureFilter.value.length === 0) {
+        if (departureFilter.value.length === 0) {
             departureList.style.display = "none";
-        }
-        else {
+        } else {
             filterCities("departure-filter", "departure-list");
             departureList.style.display = "block";
         }
     });
 
     arrivalFilter.addEventListener("input", () => {
-        if(arrivalFilter.value.length === 0) {
+        if (arrivalFilter.value.length === 0) {
             arrivalList.style.display = "none";
-        }
-        else {
+        } else {
             filterCities("arrival-filter", "arrival-list");
             arrivalList.style.display = "block";
         }

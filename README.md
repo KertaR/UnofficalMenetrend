@@ -1,6 +1,8 @@
 # Nem hivatalos Menetrend
 
-Ez egy nem hivatalos menetrend alkalmazás, amely a menetrendek.hu adatait használja. Az alkalmazás lehetővé teszi a felhasználók számára, hogy lekérdezzék az útvonalakat különböző városok között,  megjelenítve az indulási és érkezési időpontokat, az átszállások számát és az összidőt.
+Ez egy nem hivatalos menetrend alkalmazás, amely a menetrendek.hu adatait használja. Az alkalmazás lehetővé teszi a
+felhasználók számára, hogy lekérdezzék az útvonalakat különböző városok között, megjelenítve az indulási és érkezési
+időpontokat, az átszállások számát és az összidőt.
 
 **Funkciók:**
 
@@ -13,7 +15,6 @@ Ez egy nem hivatalos menetrend alkalmazás, amely a menetrendek.hu adatait haszn
     * Vonat: világoskék
     * Busz: halványsárga
 * Könnyen áttekinthető táblázatos megjelenítés.
-
 
 **Technológiák:**
 
@@ -28,18 +29,17 @@ Ez egy nem hivatalos menetrend alkalmazás, amely a menetrendek.hu adatait haszn
 
 **Használat:**
 
-1. Írd be az indulási és érkezési város nevét a megfelelő mezőkbe.  Az automatikus kiegészítés segít a város nevének megtalálásában.
+1. Írd be az indulási és érkezési város nevét a megfelelő mezőkbe. Az automatikus kiegészítés segít a város nevének
+   megtalálásában.
 2. Kattints a "Küldés" gombra.
 3. Az eredmények megjelennek a táblázatban.
 4. A táblázat fejlécére kattintva rendezheted az eredményeket.
-
 
 **Megjegyzések:**
 
 * Az alkalmazás a menetrendek.hu nyilvános API-ját használja.
 * Az alkalmazás nem hivatalos, és nem áll kapcsolatban a menetrendek.hu-val.
 * Az adatok pontosságáért nem vállalunk felelősséget.
-
 
 **További fejlesztési lehetőségek:**
 

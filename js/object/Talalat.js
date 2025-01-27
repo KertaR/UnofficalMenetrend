@@ -44,4 +44,4 @@ class Talalat {
     }
 }
 
-export { Talalat };
+export {Talalat};

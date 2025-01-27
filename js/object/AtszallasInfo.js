@@ -6,4 +6,4 @@ class AtszallasInfo {
     }
 }
 
-export { AtszallasInfo };
+export {AtszallasInfo};

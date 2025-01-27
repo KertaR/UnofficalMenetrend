@@ -97,4 +97,5 @@ class NativeData {
         this.News = data.News;
     }
 }
-export { NativeData };
+
+export {NativeData};

@@ -1,6 +1,6 @@
-import { filterCities } from './ui.js';
+import {filterCities} from './ui.js';
 import {loadData, citiesData, data} from './data.js';
-import { updateTable } from './ui.js';
+import {updateTable} from './ui.js';
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -25,7 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-
 function enableSorting() {
     const headers = document.querySelectorAll("#data-table th");
 
@@ -46,4 +45,4 @@ function enableSorting() {
     });
 }
 
-export { enableSorting };
+export {enableSorting};

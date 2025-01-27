@@ -106,4 +106,4 @@ function parseTime(timeString) {
     return now;
 }
 
-export { populateCityList, filterCities, updateTable };
+export {populateCityList, filterCities, updateTable};

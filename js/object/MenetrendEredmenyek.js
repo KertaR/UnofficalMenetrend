@@ -14,4 +14,4 @@ class MenetrendEredmenyek {
     }
 }
 
-export { MenetrendEredmenyek };
+export {MenetrendEredmenyek};

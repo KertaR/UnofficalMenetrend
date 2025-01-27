@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{fragments/header :: header}"></div>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div class="container my-5">
+    <div class="text-center">
+        <h1 class="mb-4">Adatok Beküldése</h1>
+        <form action="#" th:action="@{/menetrend}" method="post">
+            <div class="row justify-content-center highlight">
+                <div class="col-4 position-relative">
+                    <input name="kezdoAllomas" class="form-control" id="departure-search" autocomplete="off" type="text"
+                           placeholder="Indulási hely szűrése...">
+                    <ul class="list-group mt-2 cityList" id="departure-filter">
+                        <li th:each="city : ${cities}" class="list-group-item " th:text="${city}"/>
+                    </ul>
+                </div>
+                <div class="col-4 position-relative">
+                    <input name="vegAllomas" class="form-control" id="arrival-search" autocomplete="off" type="text"
+                           placeholder="Érkezési hely szűrése...">
+                    <ul class="list-group mt-2 cityList" id="arrival-filter">
+                        <li th:each="city : ${cities}" class="list-group-item" th:text="${city}"/>
+                    </ul>
+                </div>
+                <div class="col-4">
+                    <button id="search-button" type="submit" class="btn btn-primary w-100">Küldés</button>
+                </div>
+            </div>
+        </form>
+        <script th:src="@{/js/menetrendInput.js}"></script>
+        <div class="mt-5">
+            <h2 class="mb-4">Táblázat</h2>
+            <table id="data-table" class="table table-bordered">
+                <thead>
+                <tr>
+                    <th data-sort="departure">Indulási hely</th>
+                    <th data-sort="arrival">Érkezési hely</th>
+                    <th data-sort="departureTime">Indulási idő</th>
+                    <th data-sort="arrivalTime">Érkezési idő</th>
+                    <th data-sort="transfers">Átszállások száma</th>
+                    <th data-sort="totalDuration">Összidő</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="menetrend : ${menetrendek}">
+                    <td th:text="${menetrend.getDeparture()}"></td>
+                    <td th:text="${menetrend.getArrival()}"></td>
+                    <td th:text="${menetrend.getDepartureTime()}"></td>
+                    <td th:text="${menetrend.getArrivalTime()}"></td>
+                    <td th:text="${menetrend.getTransfers()}"></td>
+                    <td th:text="${menetrend.getTotalDuration()}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

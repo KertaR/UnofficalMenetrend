@@ -28,4 +28,4 @@ class JaratInfo {
     }
 }
 
-export { JaratInfo };
+export {JaratInfo};

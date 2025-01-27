@@ -1,4 +1,4 @@
-import { MenetrendTalalat } from './object/MenetrendTalalat.js';
+import {MenetrendTalalat} from './object/MenetrendTalalat.js';
 
 let data = []; // Az adatok tárolása
 let citiesData = [];
@@ -14,7 +14,7 @@ async function loadCities() {
             .filter(line => line)
             .map(line => {
                 const [id, ...nameParts] = line.split(" ");
-                return { id: parseInt(id, 10), name: nameParts.join(" ") };
+                return {id: parseInt(id, 10), name: nameParts.join(" ")};
             });
 
     } catch (error) {
@@ -112,4 +112,4 @@ async function loadData(departureCityId, arrivalCityId) {
     }
 }
 
-export { loadCities, loadData, citiesData, data };
+export {loadCities, loadData, citiesData, data};
