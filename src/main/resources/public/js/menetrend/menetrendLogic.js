@@ -1,27 +1,3 @@
-const searchDeparture = document.getElementById('departure-search');
-const searchArrival = document.getElementById('arrival-search');
-
-const filterDeparture = document.getElementById('departure-filter');
-const filterArrival = document.getElementById('arrival-filter');
-
-searchDeparture.addEventListener("input", () => {
-    if (searchDeparture.value.length === 0) {
-        filterDeparture.style.display = "none";
-    } else {
-        filterCities("departure-search", "departure-filter");
-        filterDeparture.style.display = "block";
-    }
-});
-
-searchArrival.addEventListener("input", () => {
-    if (searchArrival.value.length === 0) {
-        filterArrival.style.display = "none";
-    } else {
-        filterCities("arrival-search", "arrival-filter");
-        filterArrival.style.display = "block";
-    }
-});
-
 function filterCities(filterId, listId) {
     const input = document.getElementById(filterId).value.toLowerCase();
     const listElement = document.getElementById(listId);

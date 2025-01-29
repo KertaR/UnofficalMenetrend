@@ -21,3 +21,11 @@
 mark {
     color: black; /* To ensure text is readable against yellow */
 }
+
+.train {
+    background-color: skyblue;
+}
+
+.bus {
+    background-color: lightyellow;
+}

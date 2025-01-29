@@ -31,7 +31,7 @@ public class MenetrendController
         return "index";
     }
 
-    @PostMapping("/menetrend")
+    @PostMapping("/")
     public String menetrend(@RequestParam("kezdoAllomas") String kezdoAllomas, @RequestParam("vegAllomas") String vegAllomas, Model model)
     {
         List<Menetrend> menetrendek = menetrendService.getMenetrendek(kezdoAllomas, vegAllomas);
