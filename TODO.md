@@ -1,0 +1,7 @@
+- [ ] `MenetrendService` osztályban kapott váélasz átmappelése egyedi objektummá
+- [ ] Bejelentkezés
+- [ ] Regisztráció
+- [ ] Emailben kapott kóddal aktiválás
+- [ ] Jogosultság
+- [ ] Admin felület
+- [ ] Features oldal megírása
