@@ -1,6 +1,6 @@
-package hu.kertar.unofficalmenetrend.model.menetrend.caller;
+package hu.kertar.unofficalmenetrend.service.getroutes;
 
-public class GetRoutes {
+public class GetRoutesRequest {
     private String func = "getRoutes";
     private Params params = new Params();
 

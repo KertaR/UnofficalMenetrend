@@ -1,4 +1,4 @@
-package hu.kertar.unofficalmenetrend.model.menetrend.caller;
+package hu.kertar.unofficalmenetrend.service.getroutes;
 
 import lombok.Data;
 

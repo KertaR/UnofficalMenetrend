@@ -22,10 +22,10 @@ mark {
     color: black; /* To ensure text is readable against yellow */
 }
 
-.train {
-    background-color: skyblue;
+.train td {
+    background-color: lightblue !important;
 }
 
-.bus {
-    background-color: lightyellow;
+.bus td {
+    background-color: lightyellow !important;
 }

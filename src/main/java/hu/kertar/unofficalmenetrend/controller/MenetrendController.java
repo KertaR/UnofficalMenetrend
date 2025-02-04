@@ -1,12 +1,13 @@
 package hu.kertar.unofficalmenetrend.controller;
 
 import com.google.gson.JsonArray;
-import hu.kertar.unofficalmenetrend.model.menetrend.Menetrend;
+import hu.kertar.unofficalmenetrend.model.menetrend.getroutes.Results;
 import hu.kertar.unofficalmenetrend.service.CityMapper;
 import hu.kertar.unofficalmenetrend.service.MenetrendService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -22,20 +23,22 @@ public class MenetrendController
         this.menetrendService = menetrendService;
     }
 
+    @ModelAttribute("cities")
+    public List<String> cities() {
+        return CityMapper.getAllCities();
+    }
+
     @GetMapping("/")
-    public String index(Model model)
+    public String index()
     {
-        List<String> cities = CityMapper.getAllCities();
-        model.addAttribute("cities", cities);
-        model.addAttribute(new Menetrend());
         return "index";
     }
 
     @PostMapping("/")
     public String menetrend(@RequestParam("kezdoAllomas") String kezdoAllomas, @RequestParam("vegAllomas") String vegAllomas, Model model)
     {
-        List<Menetrend> menetrendek = menetrendService.getMenetrendek(kezdoAllomas, vegAllomas);
-        model.addAttribute("menetrendek", menetrendek);
+        Results results = menetrendService.getMenetrendek(kezdoAllomas, vegAllomas);
+        model.addAttribute("results", results);
         return "index";
     }
 }
