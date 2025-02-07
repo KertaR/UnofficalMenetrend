@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="hu">
+  <div th:replace="~{fragments/header :: header}"></div>
+  <body class="login-bg">
+    <div class="container">
+      <div class="row min-vh-100 d-flex justify-content-center align-items-center">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card login-card">
+            <div class="card-body p-5">
+              <!-- Fejléc -->
+              <div class="text-center mb-5">
+                <i class="bi bi-person-circle display-4 text-primary"></i>
+                <h2 class="mt-3 mb-0">Regisztráció</h2>
+                <p class="text-muted">Kérjük, regisztráld a fiókod</p>
+              </div>
+
+              <!-- Bejelentkezési űrlap -->
+              <form th:action="@{/register}" method="post">
+
+                <!-- Felhasználónév -->
+                <div class="mb-3">
+                  <label for="username" class="form-label">Felhasználónév</label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-file-person-fill"></i></span>
+                    <input class="form-control" type="text" id="username" name="username" autocomplete="off" placeholder="username" required>
+                  </div>
+                </div>
+
+                <!-- Email cím -->
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email cím</label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-at"></i></span>
+                    <input class="form-control" type="text" id="email" name="email" autocomplete="off" placeholder="name@example.com" required>
+                  </div>
+                </div>
+
+                <!-- Jelszó -->
+                <div class="mb-4">
+                  <label for="password" class="form-label">Jelszó</label>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                    <input class="form-control" type="password" id="password" name="password" autocomplete="off" placeholder="••••••••" required>
+                  </div>
+                </div>
+
+                <!-- Bejelentkezés gomb -->
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                <button type="submit" class="btn btn-primary w-100 mb-3">Bejelentkezés</button>
+              </form>
+              <div th:if="${param.error}" style="color: red;">
+                Hibás felhasználónév vagy jelszó!
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

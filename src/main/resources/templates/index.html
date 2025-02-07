@@ -1,64 +1,122 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<div th:replace="~{fragments/header :: header}"></div>
-<body>
-    <div th:replace="~{fragments/navbar :: navbar}"></div>
-    <div class="container my-5">
-        <div class="text-center">
-            <h1 class="mb-4">Adatok Beküldése</h1>
-            <form action="/" method="post">
-                <div class="row justify-content-center highlight">
-                    <div class="col-4 position-relative">
-                        <input name="kezdoAllomas" class="form-control" id="departure-search" autocomplete="off" type="text"
-                               placeholder="Indulási hely szűrése...">
-                        <ul class="list-group mt-2 cityList" id="departure-filter">
-                            <li th:each="city : ${cities}" class="list-group-item " th:text="${city}"/>
-                        </ul>
+    <div th:replace="~{fragments/header :: header}"></div>
+    <body>
+        <div th:replace="~{fragments/navbar :: navbar}"></div>
+
+        <div class="container my-5">
+            <div class="search-card p-4 mb-5">
+                <h1 class="text-center mb-4 display-5 fw-bold text-primary">Útvonalkereső</h1>
+
+                <form th:action="@{/}" method="post" id="searchForm">
+                    <div class="row g-3 justify-content-center">
+                        <div class="col-12 col-md-5 position-relative">
+                            <label for="departure-search" class="form-label">Indulási hely</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                                <input name="kezdoAllomas" class="form-control form-control-lg"
+                                       id="departure-search" autocomplete="off"
+                                       placeholder="Kezdőállomás..." required>
+                            </div>
+                            <ul class="list-group mt-1 cityList" id="departure-filter">
+                                <li th:each="city : ${cities}" class="list-group-item " th:text="${city}"/>
+                            </ul>
+                        </div>
+
+                        <div class="col-12 col-md-5 position-relative">
+                            <label for="arrival-search" class="form-label">Érkezési hely</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-flag-checkered"></i></span>
+                                <input name="vegAllomas" class="form-control form-control-lg"
+                                       id="arrival-search" autocomplete="off"
+                                       placeholder="Végállomás..." required>
+                            </div>
+                            <ul class="list-group mt-1 cityList" id="arrival-filter">
+                                <li th:each="city : ${cities}" class="list-group-item " th:text="${city}"/>
+                            </ul>
+                        </div>
+
+                        <div class="col-12 col-md-2 d-flex align-items-end">
+                            <button type="submit" class="btn btn-primary btn-lg w-100">
+                                <i class="fas fa-search me-2"></i>Keresés
+                            </button>
+                        </div>
                     </div>
-                    <div class="col-4 position-relative">
-                        <input name="vegAllomas" class="form-control" id="arrival-search" autocomplete="off" type="text"
-                               placeholder="Érkezési hely szűrése...">
-                        <ul class="list-group mt-2 cityList" id="arrival-filter">
-                            <li th:each="city : ${cities}" class="list-group-item" th:text="${city}"/>
-                        </ul>
-                    </div>
-                    <div class="col-4">
-                        <button id="search-button" type="submit" class="btn btn-primary w-100">Küldés</button>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
+
             <div class="mt-5">
-                <h2 class="mb-4">Táblázat</h2>
-                <div th:if="${results == null}">
-                    <p>Kérjük adja meg az indulási és érkezési állomást a kereséshez!</p>
+                <div th:if="${error != null}" class="alert alert-danger text-center">
+                    <i class="fas fa-times-circle me-2"></i><span th:text="${error}"></span>
                 </div>
-                <table th:if="${results != null}" id="data-table" class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th data-sort="departure">Indulási hely</th>
-                        <th data-sort="arrival">Érkezési hely</th>
-                        <th data-sort="departureTime">Indulási idő</th>
-                        <th data-sort="arrivalTime">Érkezési idő</th>
-                        <th data-sort="transfers">Átszállások száma</th>
-                        <th data-sort="totalDuration">Összidő</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="talalat : ${results.getTalalatok()}"
-                        th:class="${talalat.getNativeData().getTransportMode() == 'vehicles.train' ? 'train' : 'bus'}">
-                        <td th:text="${talalat.getIndulasi_hely()}"></td>
-                        <td th:text="${talalat.getErkezesi_hely()}"></td>
-                        <td th:text="${talalat.getIndulasi_ido()}"></td>
-                        <td th:text="${talalat.getErkezesi_ido()}"></td>
-                        <td th:text="${talalat.getAtszallasok_szama()}"></td>
-                        <td th:text="${talalat.getOsszido()}"></td>
-                    </tr>
-                    </tbody>
-                </table>
+
+                <div th:if="${results == null}" class="alert alert-info text-center">
+                    <i class="fas fa-info-circle me-2"></i>Kérjük adja meg az indulási és érkezési állomást a kereséshez!
+                </div>
+
+                <!-- Loading Spinner -->
+                <div class="loader-wrapper" style="display: none;">
+                    <div class="loader">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div th:if="${results != null}">
+                    <h2 class="mb-4 text-center fw-bold">Találatok</h2>
+
+                    <div class="table-responsive shadow-lg border">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light sticky-top">
+                            <tr>
+                                <th class="sortable-header py-4 px-4 bg-primary text-white border-0" data-sort="departure">
+                                    Indulási hely <i class="fas fa-sort ms-1 fa-sm"></i>
+                                </th>
+                                <th class="sortable-header py-4 px-4 bg-primary text-white border-0" data-sort="arrival">
+                                    Érkezési hely <i class="fas fa-sort ms-1 fa-sm"></i>
+                                </th>
+                                <th class="sortable-header py-4 px-4 bg-primary text-white border-0" data-sort="departureTime">
+                                    Indulási idő <i class="fas fa-sort ms-1 fa-sm"></i>
+                                </th>
+                                <th class="sortable-header py-4 px-4 bg-primary text-white border-0" data-sort="arrivalTime">
+                                    Érkezési idő <i class="fas fa-sort ms-1 fa-sm"></i>
+                                </th>
+                                <th class="sortable-header py-4 px-4 bg-primary text-white border-0" data-sort="transfers">
+                                    Átszállások <i class="fas fa-sort ms-1 fa-sm"></i>
+                                </th>
+                                <th class="sortable-header py-4 px-4 bg-primary text-white border-0" data-sort="totalDuration">
+                                    Összidő <i class="fas fa-sort ms-1 fa-sm"></i>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="talalat : ${results.getTalalatok()}"
+                                    th:class="${talalat.getNativeData().getTransportMode() == 'vehicles.train' ? 'train' : 'bus'}">
+                                    <td th:text="${talalat.getIndulasi_hely()}"></td>
+                                    <td th:text="${talalat.getErkezesi_hely()}"></td>
+                                    <td th:text="${talalat.getIndulasi_ido()}"></td>
+                                    <td th:text="${talalat.getErkezesi_ido()}"></td>
+                                    <td th:text="${talalat.getAtszallasok_szama()}"></td>
+                                    <td th:text="${talalat.getOsszido()}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div th:replace="~{fragments/menetrend/scripts :: scripts}"></div>
-</body>
+
+        <div th:replace="~{fragments/menetrend/scripts :: scripts}"></div>
+
+
+
+        <script>
+            // Betöltés animáció
+            document.getElementById('searchForm').addEventListener('submit', function() {
+                document.querySelector('.loader-wrapper').style.display = 'flex';
+            });
+        </script>
+    </body>
 </html>

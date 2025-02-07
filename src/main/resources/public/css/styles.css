@@ -1,10 +1,3 @@
-.highlight { /* Kiemelő osztály */
-    background-color: #f8f9fa;
-    padding: 15px;
-    border: 2px solid #007bff;
-    border-radius: 5px;
-}
-
 .list-group {
     display: none; /* Alapértelmezetten rejtés */
     position: absolute; /* Lebegő megjelenés */
@@ -18,14 +11,102 @@
     overflow-y: auto; /* Görgetés, ha túl hosszú */
 }
 
-mark {
-    color: black; /* To ensure text is readable against yellow */
+.search-card {
+    background: #f8f9fa;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+.cityList {
+    position: absolute;
+    width: 100%;
+    z-index: 1000;
+    max-height: 300px;
+    overflow-y: auto;
+    display: none;
+}
+.list-group-item {
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.list-group-item:hover {
+    background-color: #e9ecef;
+}
+.transport-icon {
+    width: 24px;
+    margin-right: 8px;
+}
+
+.sortable-header {
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.sortable-header:hover {
+    background-color: #f8f9fa;
+}
+
+.table {
+    --bs-table-bg: transparent;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.table thead th {
+    border-bottom: 2px solid #dee2e6;
+    letter-spacing: 0.5px;
+}
+
+.table tbody tr {
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.table tbody tr:hover {
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+.table tbody td {
+    background: #fff;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.table tbody tr:last-child td {
+    border-bottom: none;
 }
 
 .train td {
-    background-color: lightblue !important;
+    background: #dcdcff !important ;
 }
 
 .bus td {
-    background-color: lightyellow !important;
+    background: #ffffdc !important ;
+}
+
+.sticky-top {
+    z-index: 10;
+}
+
+.loader-wrapper {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center using transforms */
+    z-index: 9999;
+}
+
+/* LOGIN */
+
+.login-bg {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+.login-card {
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+.form-control:focus {
+    border-color: #764ba2;
+    box-shadow: 0 0 0 0.25rem rgba(118,75,162,0.25);
+}
+.input-group-text {
+    background-color: #fff;
 }

@@ -37,6 +37,17 @@ public class MenetrendController
     @PostMapping("/")
     public String menetrend(@RequestParam("kezdoAllomas") String kezdoAllomas, @RequestParam("vegAllomas") String vegAllomas, Model model)
     {
+
+        if (kezdoAllomas == null || kezdoAllomas.isEmpty()) {
+            model.addAttribute("error", "Indulási hely kitöltése kötelező.");
+            return "index";
+        }
+
+        if (vegAllomas == null || vegAllomas.isEmpty()) {
+            model.addAttribute("error", "Érkezési hely kitöltése kötelező.");
+            return "index";
+        }
+
         Results results = menetrendService.getMenetrendek(kezdoAllomas, vegAllomas);
         model.addAttribute("results", results);
         return "index";
