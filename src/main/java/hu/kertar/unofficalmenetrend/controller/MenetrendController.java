@@ -40,12 +40,10 @@ public class MenetrendController
 
         if (kezdoAllomas == null || kezdoAllomas.isEmpty()) {
             model.addAttribute("error", "Indulási hely kitöltése kötelező.");
-            return "index";
         }
 
         if (vegAllomas == null || vegAllomas.isEmpty()) {
             model.addAttribute("error", "Érkezési hely kitöltése kötelező.");
-            return "index";
         }
 
         Results results = menetrendService.getMenetrendek(kezdoAllomas, vegAllomas);
