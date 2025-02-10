@@ -93,13 +93,13 @@
                             </thead>
                             <tbody>
                                 <tr th:each="talalat : ${results.getTalalatok()}"
-                                    th:class="${talalat.getNativeData().getTransportMode() == 'vehicles.train' ? 'train' : 'bus'}">
-                                    <td th:text="${talalat.getIndulasi_hely()}"></td>
-                                    <td th:text="${talalat.getErkezesi_hely()}"></td>
-                                    <td th:text="${talalat.getIndulasi_ido()}"></td>
-                                    <td th:text="${talalat.getErkezesi_ido()}"></td>
-                                    <td th:text="${talalat.getAtszallasok_szama()}"></td>
-                                    <td th:text="${talalat.getOsszido()}"></td>
+                                    th:class="${talalat.getValue().getNativeData().get(0).getTransportMode() == 'vehicles.train' ? 'train' : 'bus'}">
+                                    <td th:text="${talalat.getValue().getIndulasi_hely()}"></td>
+                                    <td th:text="${talalat.getValue().getErkezesi_hely()}"></td>
+                                    <td th:text="${talalat.getValue().getIndulasi_ido()}"></td>
+                                    <td th:text="${talalat.getValue().getErkezesi_ido()}"></td>
+                                    <td th:text="${talalat.getValue().getAtszallasok_szama()}"></td>
+                                    <td th:text="${talalat.getValue().getOsszido()}"></td>
                                 </tr>
                             </tbody>
                         </table>

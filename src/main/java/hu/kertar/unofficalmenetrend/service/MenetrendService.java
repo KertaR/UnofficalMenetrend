@@ -1,15 +1,11 @@
 package hu.kertar.unofficalmenetrend.service;
 
-import com.google.gson.*;
-import hu.kertar.unofficalmenetrend.model.menetrend.getroutes.Results;
-import hu.kertar.unofficalmenetrend.service.getroutes.GetRoutesRequest;
-import hu.kertar.unofficalmenetrend.service.getroutes.GetRoutesResponse;
+import hu.kertar.api.ApacheRestClient;
+import hu.kertar.api.getroutes.GetRoutesRequest;
+import hu.kertar.api.getroutes.GetRoutesResponse;
+import hu.kertar.api.getroutes.Results;
+import hu.kertar.unofficalmenetrend.mapper.CityMapper;
 import org.springframework.stereotype.Service;
-
-import java.net.HttpURLConnection;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 @Service
 public class MenetrendService {
@@ -21,30 +17,24 @@ public class MenetrendService {
         int kezdoAllomasSettlementId = CityMapper.getSettlementIdByCityName(kezdoAllomas);
         int vegAllomasSettlementId = CityMapper.getSettlementIdByCityName(vegAllomas);
 
-        GetRoutesRequest request = new GetRoutesRequest();
-        request.getParams().setDatum("2025-01-27");
-        request.getParams().setHonnan_ls_id(0);
-        request.getParams().setHonnan_settlement_id(kezdoAllomasSettlementId);
-        request.getParams().setHour("1");
-        request.getParams().setHova_ls_id(0);
-        request.getParams().setHova_settlement_id(vegAllomasSettlementId);
-        request.getParams().setMin("27");
-        request.getParams().setNaptipus(0);
-        request.getParams().setPreferencia("0");
-        request.getParams().setVar("0");
+        ApacheRestClient apacheRestClient = new ApacheRestClient(MENETRENDEK_HU_URL);
+
+        GetRoutesRequest getRoutesRequest = new GetRoutesRequest();
+        getRoutesRequest.getParams().setDatum("2025-01-27");
+        getRoutesRequest.getParams().setHonnan_ls_id(0);
+        getRoutesRequest.getParams().setHonnan_settlement_id(kezdoAllomasSettlementId);
+        getRoutesRequest.getParams().setHour("1");
+        getRoutesRequest.getParams().setHova_ls_id(0);
+        getRoutesRequest.getParams().setHova_settlement_id(vegAllomasSettlementId);
+        getRoutesRequest.getParams().setMin("27");
+        getRoutesRequest.getParams().setNaptipus(0);
+        getRoutesRequest.getParams().setPreferencia("0");
+        getRoutesRequest.getParams().setVar("0");
 
         try {
-            String jsonPayload = new Gson().toJson(request);
-            HttpURLConnection connection = HTTPService.createHttpConnection(MENETRENDEK_HU_URL, "POST", jsonPayload);
 
-            int responseCode = connection.getResponseCode();
-            if (responseCode != HttpURLConnection.HTTP_OK) {
-                throw new RuntimeException("Hiba történt a szerverrel való kommunikáció során. Hibakód: " + responseCode);
-            }
+            GetRoutesResponse response = apacheRestClient.postRequest("/getRoutes", getRoutesRequest, GetRoutesResponse.class);
 
-            String responseBody = HTTPService.readResponseBody(connection);
-            JsonObject jsonObject = JsonParser.parseString(responseBody).getAsJsonObject();
-            GetRoutesResponse response = new GetRoutesResponse(jsonObject);
             if (response.getStatus().equals("success")) {
                 return response.getResults();
             }

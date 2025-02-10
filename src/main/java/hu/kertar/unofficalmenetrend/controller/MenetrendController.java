@@ -1,8 +1,7 @@
 package hu.kertar.unofficalmenetrend.controller;
 
-import com.google.gson.JsonArray;
-import hu.kertar.unofficalmenetrend.model.menetrend.getroutes.Results;
-import hu.kertar.unofficalmenetrend.service.CityMapper;
+import hu.kertar.api.getroutes.Results;
+import hu.kertar.unofficalmenetrend.mapper.CityMapper;
 import hu.kertar.unofficalmenetrend.service.MenetrendService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

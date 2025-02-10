@@ -1,4 +1,4 @@
-package hu.kertar.unofficalmenetrend.service;
+package hu.kertar.unofficalmenetrend.mapper;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
