@@ -34,7 +34,10 @@ public class MenetrendController
     }
 
     @PostMapping("/")
-    public String menetrend(@RequestParam("kezdoAllomas") String kezdoAllomas, @RequestParam("vegAllomas") String vegAllomas, Model model)
+    public String menetrend(
+            @RequestParam("kezdoAllomas") String kezdoAllomas,
+            @RequestParam("vegAllomas") String vegAllomas,
+            @RequestParam("indulasiIdo") String indulasiIdo, Model model)
     {
 
         if (kezdoAllomas == null || kezdoAllomas.isEmpty()) {
@@ -45,7 +48,11 @@ public class MenetrendController
             model.addAttribute("error", "Érkezési hely kitöltése kötelező.");
         }
 
-        Results results = menetrendService.getMenetrendek(kezdoAllomas, vegAllomas);
+        if (indulasiIdo == null || indulasiIdo.isEmpty()) {
+            model.addAttribute("error", "Indulási idő kitöltése kötelező.");
+        }
+
+        Results results = menetrendService.getMenetrendek(kezdoAllomas, vegAllomas, indulasiIdo);
         model.addAttribute("results", results);
         return "index";
     }

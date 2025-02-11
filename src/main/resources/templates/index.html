@@ -11,7 +11,7 @@
 
                 <form th:action="@{/}" method="post" id="searchForm">
                     <div class="row g-3 justify-content-center">
-                        <div class="col-12 col-md-5 position-relative">
+                        <div class="col-12 col-md-3 position-relative">
                             <label for="departure-search" class="form-label">Indulási hely</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
@@ -24,7 +24,7 @@
                             </ul>
                         </div>
 
-                        <div class="col-12 col-md-5 position-relative">
+                        <div class="col-12 col-md-3 position-relative">
                             <label for="arrival-search" class="form-label">Érkezési hely</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-flag-checkered"></i></span>
@@ -37,7 +37,16 @@
                             </ul>
                         </div>
 
-                        <div class="col-12 col-md-2 d-flex align-items-end">
+                        <div class="col-12 col-md-3 position-relative">
+                            <label for="indulasiIdo" class="form-label">Dátum kiválasztása</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-calendar"></i></span>
+                                <input type="date" name="indulasiIdo" class="form-control form-control-lg"
+                                       id="indulasiIdo" required>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-3 d-flex align-items-end">
                             <button type="submit" class="btn btn-primary btn-lg w-100">
                                 <i class="fas fa-search me-2"></i>Keresés
                             </button>
@@ -89,6 +98,9 @@
                                 <th class="sortable-header py-4 px-4 bg-primary text-white border-0" data-sort="totalDuration">
                                     Összidő <i class="fas fa-sort ms-1 fa-sm"></i>
                                 </th>
+                                <th class="header py-4 px-4 bg-primary text-white border-0">
+                                    Műveletek <i class="fas fa-sort ms-1 fa-sm"></i>
+                                </th>
                             </tr>
                             </thead>
                             <tbody>
@@ -100,6 +112,11 @@
                                     <td th:text="${talalat.getValue().getErkezesi_ido()}"></td>
                                     <td th:text="${talalat.getValue().getAtszallasok_szama()}"></td>
                                     <td th:text="${talalat.getValue().getOsszido()}"></td>
+                                    <td>
+                                        <div>M1</div>
+                                        <div>M2</div>
+                                        <div>M3</div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

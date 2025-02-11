@@ -12,7 +12,7 @@ public class MenetrendService {
 
     private static final String MENETRENDEK_HU_URL = "https://menetrendek.hu/menetrend/newinterface/index.php";
 
-    public Results getMenetrendek(String kezdoAllomas, String vegAllomas) {
+    public Results getMenetrendek(String kezdoAllomas, String vegAllomas, String indulasiIdo) {
 
         int kezdoAllomasSettlementId = CityMapper.getSettlementIdByCityName(kezdoAllomas);
         int vegAllomasSettlementId = CityMapper.getSettlementIdByCityName(vegAllomas);
@@ -20,10 +20,12 @@ public class MenetrendService {
         ApacheRestClient apacheRestClient = new ApacheRestClient(MENETRENDEK_HU_URL);
 
         GetRoutesRequest getRoutesRequest = new GetRoutesRequest();
-        getRoutesRequest.getParams().setDatum("2025-01-27");
+        getRoutesRequest.getParams().setDatum(indulasiIdo);
+        getRoutesRequest.getParams().setHonnan(kezdoAllomas);
         getRoutesRequest.getParams().setHonnan_ls_id(0);
         getRoutesRequest.getParams().setHonnan_settlement_id(kezdoAllomasSettlementId);
         getRoutesRequest.getParams().setHour("1");
+        getRoutesRequest.getParams().setHova(vegAllomas);
         getRoutesRequest.getParams().setHova_ls_id(0);
         getRoutesRequest.getParams().setHova_settlement_id(vegAllomasSettlementId);
         getRoutesRequest.getParams().setMin("27");
@@ -33,13 +35,14 @@ public class MenetrendService {
 
         try {
 
-            GetRoutesResponse response = apacheRestClient.postRequest("/getRoutes", getRoutesRequest, GetRoutesResponse.class);
+            GetRoutesResponse response = apacheRestClient.postRequest("/", getRoutesRequest, GetRoutesResponse.class);
 
             if (response.getStatus().equals("success")) {
                 return response.getResults();
             }
-
-            return null;
+            else {
+                throw new RuntimeException(response.getErrMsg());
+            }
         } catch (Exception e) {
             System.err.println("Hiba: " + e.getMessage());
             throw new RuntimeException(e);
