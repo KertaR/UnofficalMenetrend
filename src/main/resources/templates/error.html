@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{fragments/header :: header}"></div>
+<body>
+<div class="container mt-5">
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Hiba történt!</h4>
+        <p>Sajnáljuk, váratlan hiba lépett fel az oldal betöltése közben.</p>
+        <hr>
+        <p class="mb-0" th:text="${message}"></p>
+        <br/>
+        <p class="mb-0">Státusz kód: <span th:text="${status}"></span></p>
+        <p class="mb-0">Hiba típusa: <span th:text="${error}"></span></p>
+        <p class="mb-0">Időpont: <span th:text="${timestamp}"></span></p>
+        <p class="mb-0">Útvonal: <span th:text="${path}"></span></p>
+        <div th:if="${trace}">
+            <hr>
+            <p class="mb-0"><strong>Részletes hiba információ (stack trace):</strong></p>
+            <pre th:text="${trace}"></pre>
+        </div>
+    </div>
+    <a th:href="@{/static}">Vissza a főoldalra</a>
+</div>
+</body>
+</html>

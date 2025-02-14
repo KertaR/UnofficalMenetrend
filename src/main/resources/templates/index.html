@@ -17,7 +17,7 @@
                                 <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                                 <input name="kezdoAllomas" class="form-control form-control-lg"
                                        id="departure-search" autocomplete="off"
-                                       placeholder="Kezdőállomás..." required>
+                                       placeholder="Kezdőállomás..." th:value="${kezdoAllomas}" required>
                             </div>
                             <ul class="list-group mt-1 cityList" id="departure-filter">
                                 <li th:each="city : ${cities}" class="list-group-item " th:text="${city}"/>
@@ -30,7 +30,7 @@
                                 <span class="input-group-text"><i class="fas fa-flag-checkered"></i></span>
                                 <input name="vegAllomas" class="form-control form-control-lg"
                                        id="arrival-search" autocomplete="off"
-                                       placeholder="Végállomás..." required>
+                                       placeholder="Végállomás..." th:value="${vegAllomas}" required>
                             </div>
                             <ul class="list-group mt-1 cityList" id="arrival-filter">
                                 <li th:each="city : ${cities}" class="list-group-item " th:text="${city}"/>
@@ -41,7 +41,7 @@
                             <label for="indulasiIdo" class="form-label">Dátum kiválasztása</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-calendar"></i></span>
-                                <input type="date" name="indulasiIdo" class="form-control form-control-lg"
+                                <input th:value="${todayDate}" type="date" name="indulasiIdo" class="form-control form-control-lg"
                                        id="indulasiIdo" required>
                             </div>
                         </div>

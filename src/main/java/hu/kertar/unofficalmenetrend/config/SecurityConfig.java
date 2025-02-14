@@ -32,7 +32,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/js/**", "/css/**", "/").permitAll()
                         .requestMatchers("/registration").permitAll()
-                        .requestMatchers(HttpMethod.POST,"/**").permitAll()
+                        .requestMatchers("/coupon").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/registration").permitAll() // Regisztráció
+                        .requestMatchers(HttpMethod.POST, "/coupon/update").authenticated() // Kupon frissítés (bejelentkezve)
+                        .requestMatchers(HttpMethod.POST, "/coupon/delete").authenticated() // Kupon törlés (bejelentkezve)
                         .requestMatchers("/todo").authenticated()
                         .anyRequest().authenticated()
                 )

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -25,6 +27,13 @@ public class MenetrendController
     @ModelAttribute("cities")
     public List<String> cities() {
         return CityMapper.getAllCities();
+    }
+
+    @ModelAttribute("todayDate")
+    public String todayDate() {
+        LocalDate today = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return today.format(formatter);
     }
 
     @GetMapping("/")
@@ -51,9 +60,21 @@ public class MenetrendController
         if (indulasiIdo == null || indulasiIdo.isEmpty()) {
             model.addAttribute("error", "Indulási idő kitöltése kötelező.");
         }
+        List<String> cities = cities();
+        if(!cities.contains(kezdoAllomas)) {
+            model.addAttribute("error", "Helytelen Indulási hely.");
+        }
+        if(!cities.contains(vegAllomas)) {
+            model.addAttribute("error", "Helytelen Érkezési hely.");
+        }
 
-        Results results = menetrendService.getMenetrendek(kezdoAllomas, vegAllomas, indulasiIdo);
-        model.addAttribute("results", results);
+        if(!model.containsAttribute("error"))
+        {
+            Results results = menetrendService.getMenetrendek(kezdoAllomas, vegAllomas, indulasiIdo);
+            model.addAttribute("results", results);
+        }
+        model.addAttribute("kezdoAllomas", kezdoAllomas);
+        model.addAttribute("vegAllomas", vegAllomas);
         return "index";
     }
 }
