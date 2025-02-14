@@ -81,43 +81,37 @@
                             <thead class="table-light sticky-top">
                             <tr>
                                 <th class="sortable-header py-4 px-4 bg-primary text-white border-0" data-sort="departure">
-                                    Indulási hely <i class="fas fa-sort ms-1 fa-sm"></i>
+                                    Indulás <i class="fas fa-sort ms-1 fa-sm"></i>
                                 </th>
                                 <th class="sortable-header py-4 px-4 bg-primary text-white border-0" data-sort="arrival">
-                                    Érkezési hely <i class="fas fa-sort ms-1 fa-sm"></i>
-                                </th>
-                                <th class="sortable-header py-4 px-4 bg-primary text-white border-0" data-sort="departureTime">
-                                    Indulási idő <i class="fas fa-sort ms-1 fa-sm"></i>
-                                </th>
-                                <th class="sortable-header py-4 px-4 bg-primary text-white border-0" data-sort="arrivalTime">
-                                    Érkezési idő <i class="fas fa-sort ms-1 fa-sm"></i>
-                                </th>
-                                <th class="sortable-header py-4 px-4 bg-primary text-white border-0" data-sort="transfers">
-                                    Átszállások <i class="fas fa-sort ms-1 fa-sm"></i>
-                                </th>
-                                <th class="sortable-header py-4 px-4 bg-primary text-white border-0" data-sort="totalDuration">
-                                    Összidő <i class="fas fa-sort ms-1 fa-sm"></i>
+                                    Érkezés <i class="fas fa-sort ms-1 fa-sm"></i>
                                 </th>
                                 <th class="header py-4 px-4 bg-primary text-white border-0">
-                                    Műveletek <i class="fas fa-sort ms-1 fa-sm"></i>
+                                    Művelet <i class="fas fa-sort ms-1 fa-sm"></i>
                                 </th>
                             </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="talalat : ${results.getTalalatok()}"
-                                    th:class="${talalat.getValue().getNativeData().get(0).getTransportMode() == 'vehicles.train' ? 'train' : 'bus'}">
-                                    <td th:text="${talalat.getValue().getIndulasi_hely()}"></td>
-                                    <td th:text="${talalat.getValue().getErkezesi_hely()}"></td>
-                                    <td th:text="${talalat.getValue().getIndulasi_ido()}"></td>
-                                    <td th:text="${talalat.getValue().getErkezesi_ido()}"></td>
-                                    <td th:text="${talalat.getValue().getAtszallasok_szama()}"></td>
-                                    <td th:text="${talalat.getValue().getOsszido()}"></td>
-                                    <td>
-                                        <div>M1</div>
-                                        <div>M2</div>
-                                        <div>M3</div>
-                                    </td>
-                                </tr>
+                            <tr th:each="talalat : ${results.getTalalatok()}"
+                                th:class="${talalat.getValue().getNativeData().get(0).getTransportMode() == 'vehicles.train' ? 'table-row-train' : 'table-row-bus'}">
+                                <td class="py-2 px-4">
+                                    <div>
+                                        <div th:text="${talalat.getValue().getIndulasi_hely()}"></div>
+                                        <div class="text-muted" th:text="${talalat.getValue().getIndulasi_ido()}"></div>
+                                    </div>
+                                </td>
+                                <td class="py-2 px-4">
+                                    <div>
+                                        <div th:text="${talalat.getValue().getErkezesi_hely()}"></div>
+                                        <div class="text-muted" th:text="${talalat.getValue().getErkezesi_ido()}"></div>
+                                    </div>
+                                </td>
+                                <td class="py-2 px-4">
+                                    <div class="d-grid gap-2 d-md-block">
+                                        <button class="btn btn-sm btn-outline-primary" type="button">Részletek</button>
+                                    </div>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>

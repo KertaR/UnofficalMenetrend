@@ -73,12 +73,39 @@
     border-bottom: none;
 }
 
-.train td {
-    background: #dcdcff !important ;
+.table-row-train td {
+    background: #bfe6ff !important;
 }
 
-.bus td {
-    background: #ffffdc !important ;
+.table-row-bus td {
+    background: #ffffbf !important;
+}
+
+@media (max-width: 768px) { /* Kis képernyőkre (telefonokra) */
+    .table-responsive {
+        overflow-x: auto; /* Engedélyezzük a vízszintes görgetést, ha szükséges */
+    }
+    .table {
+        font-size: 12px;
+        width: 100%;
+    }
+    .table td {
+        border: 0;
+        position: relative;
+    }
+    .table td:before {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 45%; /* A "data-label" szélessége */
+        padding-right: 10px;
+        white-space: nowrap;
+        content: attr(data-label);
+        font-weight: bold;
+    }
+    .table td:last-child {
+        text-align: center; /* Műveletek középre igazítása telefonon */
+    }
 }
 
 .sticky-top {
