@@ -92,19 +92,26 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="talalat : ${results.getTalalatok()}"
-                                th:class="${talalat.getValue().getNativeData().get(0).getTransportMode() == 'vehicles.train' ? 'table-row-train' : 'table-row-bus'}">
+                            <tr th:each="talalat : ${results.getTalalatok()}">
                                 <td class="py-2 px-4">
-                                    <div>
-                                        <div th:text="${talalat.getValue().getIndulasi_hely()}"></div>
-                                        <div class="text-muted" th:text="${talalat.getValue().getIndulasi_ido()}"></div>
-                                    </div>
+                                    <span th:if="${talalat.getValue().getNativeData().get(0).getTransportMode() == 'vehicles.train'}">
+                                        <svg th:replace="~{fragments/menetrend/svg :: train}"></svg>
+                                    </span>
+                                    <span th:if="${talalat.getValue().getNativeData().get(0).getTransportMode() == 'vehicles.bus'}">
+                                        <svg th:replace="~{fragments/menetrend/svg :: bus}"></svg>
+                                    </span>
+                                    <span th:text="${talalat.getValue().getIndulasi_hely()}"></span>
+                                    <div class="text-muted" th:text="${talalat.getValue().getIndulasi_ido()}"></div>
                                 </td>
                                 <td class="py-2 px-4">
-                                    <div>
-                                        <div th:text="${talalat.getValue().getErkezesi_hely()}"></div>
-                                        <div class="text-muted" th:text="${talalat.getValue().getErkezesi_ido()}"></div>
-                                    </div>
+                                    <span th:if="${talalat.getValue().getNativeData().get(talalat.getValue().getNativeData().size() - 1).getTransportMode() == 'vehicles.train'}">
+                                        <svg th:replace="~{fragments/menetrend/svg :: train}"></svg>
+                                    </span>
+                                    <span th:if="${talalat.getValue().getNativeData().get(talalat.getValue().getNativeData().size() - 1).getTransportMode() == 'vehicles.bus'}">
+                                        <svg th:replace="~{fragments/menetrend/svg :: bus}"></svg>
+                                    </span>
+                                    <span th:text="${talalat.getValue().getErkezesi_hely()}"></span>
+                                    <div class="text-muted" th:text="${talalat.getValue().getErkezesi_ido()}"></div>
                                 </td>
                                 <td class="py-2 px-4">
                                     <div class="d-grid gap-2 d-md-block">

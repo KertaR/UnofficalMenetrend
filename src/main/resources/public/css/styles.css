@@ -73,13 +73,6 @@
     border-bottom: none;
 }
 
-.table-row-train td {
-    background: #bfe6ff !important;
-}
-
-.table-row-bus td {
-    background: #ffffbf !important;
-}
 
 @media (max-width: 768px) { /* Kis képernyőkre (telefonokra) */
     .table-responsive {
