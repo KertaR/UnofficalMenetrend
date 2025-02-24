@@ -115,7 +115,10 @@
                                 </td>
                                 <td class="py-2 px-4">
                                     <div class="d-grid gap-2 d-md-block">
-                                        <button class="btn btn-sm btn-outline-primary" type="button">Részletek</button>
+                                        <form th:action="@{/reszletek}" method="post" target="_blank">
+                                            <input type="hidden" name="talalatData" th:value="${talalat.getValue().toJson()}">
+                                            <button class="btn btn-sm btn-outline-primary" type="submit">Részletek</button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>

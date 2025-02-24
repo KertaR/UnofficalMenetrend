@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header:: header}"></head>
+<body>
+<div th:replace="~{fragments/navbar:: navbar}"></div>
+
+<div class="container mt-4">
+    <div class="shadow-lg border p-4 rounded-3 bg-white">
+
+        <div class="mb-4 bg-gradient-primary p-4 rounded-3">
+            <h1 class="display-6 mb-0">
+                <i class="fas fa-route me-2"></i>
+                <span th:text="${talalat.departureCity} + ' → ' + ${talalat.arrivalCity}">Útvonal összesítés</span>
+            </h1>
+        </div>
+
+        <div class="row g-3 mb-4">
+            <div class="col-md-3">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h6 class="card-subtitle text-muted"><i class="fas fa-clock me-2"></i>Teljes idő</h6>
+                        <div class="h4 text-primary" th:text="${talalat.osszido}"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h6 class="card-subtitle text-muted"><i class="fas fa-exchange-alt me-2"></i>Átszállások</h6>
+                        <div class="h4 text-primary" th:text="${talalat.atszallasok_szama}"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h6 class="card-subtitle text-muted"><i class="fas fa-plane-departure me-2"></i>Indulás</h6>
+                        <div class="h4 text-success" th:text="${talalat.indulasi_ido}"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h6 class="card-subtitle text-muted"><i class="fas fa-plane-arrival me-2"></i>Érkezés</h6>
+                        <div class="h4 text-danger" th:text="${talalat.erkezesi_ido}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4 border-success shadow-sm">
+            <div class="card-header bg-success text-white">
+                <i class="fas fa-tag me-2"></i>Utazási költség
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span>Teljes ár:</span>
+                    <span class="h4 text-success" th:text="${talalat.totalFare} + ' HUF'"></span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span><span class="badge bg-primary me-2">-50%</span>Diák/nyugdíjas:</span>
+                    <span class="h5 text-primary" th:text="${talalat.totalFare50} + ' HUF'"></span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <span><span class="badge bg-info me-2">-90%</span>Kisgyermekes:</span>
+                    <span class="h5 text-info" th:text="${talalat.totalFare90} + ' HUF'"></span>
+                </div>
+            </div>
+        </div>
+
+        <div th:if="${talalat.riskyTransfer}" class="alert alert-danger d-flex align-items-center mb-4">
+            <i class="fas fa-exclamation-triangle fa-2x me-3"></i>
+            <div>
+                <strong>Figyelmeztetés!</strong> Néhány átszállás szűkös lehet. Javasoljuk, hogy legyen elegendő tartalék idő az átszállásokhoz!
+            </div>
+        </div>
+
+        <div th:if="${talalat.getETicketAvailable() == 1}" class="text-center mb-4">
+            <button class="btn btn-lg btn-success px-5 rounded-pill">
+                <i class="fas fa-ticket-alt me-2"></i>E-jegy vásárlása
+            </button>
+            <p class="text-muted mt-2 small">Azonnali visszaigazolás • Mobiljegy használható</p>
+        </div>
+
+        <h4 class="mb-3"><i class="fas fa-map-marked-alt me-2"></i>Utazás részletei</h4>
+        <div class="timeline-steps mb-5">
+            <div th:each="jaratInfo, index: ${talalat.jaratinfok}" class="timeline-step">
+                <div class="timeline-content">
+                    <div class="circle" th:classappend="${index.odd}? 'bg-primary': 'bg-secondary'">
+                        <i class="fas fa-train"></i>
+                    </div>
+                    <div class="mt-3">
+                        <p class="mb-0 text-secondary"><small>vonal név: <span th:text="${jaratInfo.getValue().getVonalnev()}"></span></small></p>
+                        <p class="mb-0 text-secondary"><small>Kategória: <span th:text="${jaratInfo.getValue().getTrain_cat()}"></span></small></p>
+                        <div class="d-flex flex-wrap mt-2">
+                            <span th:if="${jaratInfo.getValue().getWifi() == 1}" class="badge bg-info me-1 mb-1"><i class="fas fa-wifi"></i> Wifi</span>
+                            <span th:if="${jaratInfo.getValue().getInternet() == 1}" class="badge bg-info me-1 mb-1"><i class="fas fa-ethernet"></i> Internet</span>
+                            <span th:if="${jaratInfo.getValue().getAlacsonypadlos() == 1}" class="badge bg-info me-1 mb-1">Alacsonypadlós</span>
+                            <span th:if="${jaratInfo.getValue().getNagysebessegu() == 1}" class="badge bg-info me-1 mb-1">Nagysebességű</span>
+                            <span th:if="${jaratInfo.getValue().getEmeltszintu() == 1}" class="badge bg-info me-1 mb-1">Emeltszintű</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div th:if="${not #lists.isEmpty(talalat.getExplanations())}" class="card border-info mb-4">
+            <div class="card-header bg-info text-white">
+                <i class="fas fa-info-circle me-2"></i>Fontos megjegyzések
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mb-0">
+                    <li th:each="explanation: ${talalat.getExplanations()}" class="d-flex mb-2">
+                        <i class="fas fa-chevron-right text-info me-2 mt-1"></i>
+                        <span th:text="${explanation}"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

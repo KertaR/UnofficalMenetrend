@@ -1,6 +1,8 @@
 package hu.kertar.unofficalmenetrend.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import hu.kertar.api.getroutes.Results;
+import hu.kertar.api.getroutes.Talalat;
 import hu.kertar.unofficalmenetrend.mapper.CityMapper;
 import hu.kertar.unofficalmenetrend.service.MenetrendService;
 import org.springframework.stereotype.Controller;
@@ -10,9 +12,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class MenetrendController
@@ -76,5 +81,11 @@ public class MenetrendController
         model.addAttribute("kezdoAllomas", kezdoAllomas);
         model.addAttribute("vegAllomas", vegAllomas);
         return "index";
+    }
+
+    @PostMapping("/reszletek")
+    public String reszletek(@RequestParam("talalatData") Talalat talalatData, Model model) {
+        model.addAttribute("talalat", talalatData);
+        return "reszletek";
     }
 }
